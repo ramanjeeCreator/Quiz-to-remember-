@@ -1,107 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>JEE Practice Test</title>
-
+    <title>JEE Practice Test</title>
+    <link rel="stylesheet" href="style.css">
 
 </head>
 
 <body>
 
-<!-- HOME -->
+    <!-- HOME -->
 
-<div class="screen" id="homeScreen">
+    <div class="screen" id="homeScreen">
 
-<div class="card">
+        <div class="card">
 
-<h1>JEE Practice</h1>
+            <h1>JEE Practice</h1>
 
-<p>
-Practice random PYQs with timer and detailed result.
-</p>
+            <p>
+                Practice random PYQs with timer and detailed result.
+            </p>
 
-<button class="primary"
-onclick="openSelection()">
-Start Test
-</button>
+            <button class="primary" onclick="openSelection()">
+                Start Test
+            </button>
 
-</div>
+        </div>
 
-</div>
+    </div>
 
-<!-- TEST SELECTION -->
+    <!-- TEST SELECTION -->
 
-<div class="screen hidden" id="selectScreen">
+    <div class="screen hidden" id="selectScreen">
 
-<div class="card">
+        <div class="card">
 
-<h2 style="margin-bottom:25px;">
-Select Test Type
-</h2>
+            <h2 style="margin-bottom:25px;">
+                Select Test Type
+            </h2>
 
-<button class="option"
-onclick="chooseTest('Physics')">
-Physics
-</button>
+            <button class="option" onclick="chooseTest('Physics')">
+                Physics
+            </button>
 
-<button class="option"
-onclick="chooseTest('Chemistry')">
-Chemistry
-</button>
+            <button class="option" onclick="chooseTest('Chemistry')">
+                Chemistry
+            </button>
 
-<button class="option"
-onclick="chooseTest('Mathematics')">
-Mathematics
-</button>
+            <button class="option" onclick="chooseTest('Mathematics')">
+                Mathematics
+            </button>
 
-<button class="option"
-onclick="chooseTest('Mixed')">
-Mixed Test
-</button>
+            <button class="option" onclick="chooseTest('Mixed')">
+                Mixed Test
+            </button>
 
-<button class="back"
-onclick="goHome()">
-Back
-</button>
+            <button class="back" onclick="goHome()">
+                Back
+            </button>
 
-</div>
+        </div>
 
-</div>
+    </div>
 
-<script>
+    <!-- QUESTION SCREEN -->
 
-function openSelection(){
+    <div class="screen hidden" id="questionScreen">
 
-document.getElementById("homeScreen")
-.classList.add("hidden");
+        <div class="card">
 
-document.getElementById("selectScreen")
-.classList.remove("hidden");
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
 
-}
+                <h3 id="progress">
+                    Question 1/20
+                </h3>
 
-function goHome(){
+                <div id="timerCircle">
 
-document.getElementById("selectScreen")
-.classList.add("hidden");
+                    <span id="timerText">
+                        20
+                    </span>
 
-document.getElementById("homeScreen")
-.classList.remove("hidden");
+                </div>
 
-}
+            </div>
 
-function chooseTest(type){
+            <h2 id="questionText">
+                Question will appear here...
+            </h2>
 
-localStorage.setItem("selectedTest",type);
+            <div id="options">
 
-alert(type+" selected.\n\nPart 2 will open the Question Screen.");
+                <button class="option answer">Option A</button>
 
-}
+                <button class="option answer">Option B</button>
 
-</script>
+                <button class="option answer">Option C</button>
+
+                <button class="option answer">Option D</button>
+
+            </div>
+
+            <button class="primary" id="nextBtn">
+                Next
+            </button>
+
+        </div>
+
+    </div>-->
+
+    <script src="main.js"></script>
+    <script src="script.js"></script>
 
 </body>
+
 </html>
