@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>JEE Practice Test</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+background:linear-gradient(135deg,#0f172a,#1e293b);
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+overflow:hidden;
+color:white;
+}
+
+.screen{
+position:absolute;
+width:100%;
+height:100%;
+display:flex;
+justify-content:center;
+align-items:center;
+transition:.5s;
+}
+
+.hidden{
+opacity:0;
+pointer-events:none;
+transform:translateY(30px);
+}
+
+.card{
+width:90%;
+max-width:420px;
+background:#1e293b;
+padding:35px;
+border-radius:20px;
+box-shadow:0 15px 40px rgba(0,0,0,.4);
+text-align:center;
+animation:pop .6s;
+}
+
+@keyframes pop{
+
+0%{
+transform:scale(.8);
+opacity:0;
+}
+
+100%{
+transform:scale(1);
+opacity:1;
+}
+
+}
+
+h1{
+
+margin-bottom:10px;
+font-size:32px;
+
+}
+
+p{
+
+color:#cbd5e1;
+margin-bottom:30px;
+
+}
+
+button{
+
+width:100%;
+padding:16px;
+margin-top:15px;
+border:none;
+border-radius:12px;
+font-size:17px;
+cursor:pointer;
+transition:.3s;
+
+}
+
+.primary{
+
+background:#2563eb;
+color:white;
+
+}
+
+.primary:hover{
+
+background:#1d4ed8;
+transform:scale(1.03);
+
+}
+
+.option{
+
+background:#334155;
+color:white;
+
+}
+
+.option:hover{
+
+background:#475569;
+transform:translateY(-3px);
+
+}
+
+.back{
+
+background:#ef4444;
+
+}
+
+.back:hover{
+
+background:#dc2626;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- HOME -->
+
+<div class="screen" id="homeScreen">
+
+<div class="card">
+
+<h1>JEE Practice</h1>
+
+<p>
+Practice random PYQs with timer and detailed result.
+</p>
+
+<button class="primary"
+onclick="openSelection()">
+Start Test
+</button>
+
+</div>
+
+</div>
+
+<!-- TEST SELECTION -->
+
+<div class="screen hidden" id="selectScreen">
+
+<div class="card">
+
+<h2 style="margin-bottom:25px;">
+Select Test Type
+</h2>
+
+<button class="option"
+onclick="chooseTest('Physics')">
+Physics
+</button>
+
+<button class="option"
+onclick="chooseTest('Chemistry')">
+Chemistry
+</button>
+
+<button class="option"
+onclick="chooseTest('Mathematics')">
+Mathematics
+</button>
+
+<button class="option"
+onclick="chooseTest('Mixed')">
+Mixed Test
+</button>
+
+<button class="back"
+onclick="goHome()">
+Back
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+function openSelection(){
+
+document.getElementById("homeScreen")
+.classList.add("hidden");
+
+document.getElementById("selectScreen")
+.classList.remove("hidden");
+
+}
+
+function goHome(){
+
+document.getElementById("selectScreen")
+.classList.add("hidden");
+
+document.getElementById("homeScreen")
+.classList.remove("hidden");
+
+}
+
+function chooseTest(type){
+
+localStorage.setItem("selectedTest",type);
+
+alert(type+" selected.\n\nPart 2 will open the Question Screen.");
+
+}
+
+</script>
+
+</body>
+</html>
