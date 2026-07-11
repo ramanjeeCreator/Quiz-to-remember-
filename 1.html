@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>JEE Practice Test</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <!-- HOME -->
+
+    <div class="screen" id="homeScreen">
+
+        <div class="card">
+
+            <h1>JEE Practice</h1>
+
+            <p>
+                Practice random PYQs with timer and detailed result.
+            </p>
+
+            <button class="primary" onclick="openSelection()">
+                Start Test
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- TEST SELECTION -->
+
+    <div class="screen hidden" id="selectScreen">
+
+        <div class="card">
+
+            <h2 style="margin-bottom:25px;">
+                Select Test Type
+            </h2>
+
+            <button class="option" onclick="chooseTest('Physics')">
+                Physics
+            </button>
+
+            <button class="option" onclick="chooseTest('Chemistry')">
+                Chemistry
+            </button>
+
+            <button class="option" onclick="chooseTest('Mathematics')">
+                Mathematics
+            </button>
+
+            <button class="option" onclick="chooseTest('Mixed')">
+                Mixed Test
+            </button>
+
+            <button class="back" onclick="goHome()">
+                Back
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- QUESTION SCREEN -->
+
+    <div class="screen hidden" id="questionScreen">
+
+        <div class="card">
+
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+
+                <h3 id="progress">
+                    Question 1/20
+                </h3>
+
+                <div id="timerCircle">
+
+                    <span id="timerText">
+                        20
+                    </span>
+
+                </div>
+
+            </div>
+
+            <h2 id="questionText">
+                Question will appear here...
+            </h2>
+
+            <div id="options">
+
+                <button class="option answer">Option A</button>
+
+                <button class="option answer">Option B</button>
+
+                <button class="option answer">Option C</button>
+
+                <button class="option answer">Option D</button>
+
+            </div>
+
+            <button class="primary" id="nextBtn">
+                Next
+            </button>
+
+        </div>
+
+    </div>-->
+
+    <script src="main.js"></script>
+    <script src="script.js"></script>
+
+</body>
+
+</html>

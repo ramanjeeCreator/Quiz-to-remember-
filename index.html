@@ -2,119 +2,268 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>JEE Active Recall Dashboard</title>
+        <style>
+                :root {
+                        --bg-color: #f4f7f6;
+                        --card-bg: #ffffff;
+                        --text-color: #333333;
+                        --primary-color: #3498db;
+                        --accent-color: #2ecc71;
+                        --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                }
 
-    <title>JEE Practice Test</title>
-    <link rel="stylesheet" href="style.css">
+                body {
+                        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                        background-color: var(--bg-color);
+                        color: var(--text-color);
+                        margin: 0;
+                        padding: 20px;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                }
 
+                header {
+                        margin-bottom: 30px;
+                        text-align: center;
+                }
+
+                .container {
+                        width: 100%;
+                        max-width: 800px;
+                }
+
+                .navigation {
+                        display: flex;
+                        gap: 10px;
+                        margin-bottom: 20px;
+                        flex-wrap: wrap;
+                }
+
+                button {
+                        padding: 10px 20px;
+                        border: none;
+                        border-radius: 5px;
+                        cursor: pointer;
+                        font-weight: bold;
+                        transition: background 0.2s;
+                }
+
+                .btn-subject {
+                        background-color: var(--primary-color);
+                        color: white;
+                }
+
+                .btn-topic {
+                        background-color: #e0e0e0;
+                        color: #333;
+                }
+
+                .btn-topic.active {
+                        background-color: var(--accent-color);
+                        color: white;
+                }
+
+                .flashcard {
+                        background-color: var(--card-bg);
+                        border-radius: 10px;
+                        box-shadow: var(--shadow);
+                        padding: 30px;
+                        min-height: 200px;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-between;
+                        align-items: center;
+                        text-align: center;
+                        margin-bottom: 20px;
+                }
+
+                .metadata {
+                        font-size: 0.85rem;
+                        color: #7f8c8d;
+                        width: 100%;
+                        display: flex;
+                        justify-content: space-between;
+                        border-bottom: 1px solid #eee;
+                        padding-bottom: 10px;
+                }
+
+                .content {
+                        font-size: 1.3rem;
+                        margin: 40px 0;
+                        font-weight: 500;
+                }
+
+                .answer {
+                        display: none;
+                        color: #27ae60;
+                        border-top: 2px dashed #eee;
+                        padding-top: 20px;
+                        width: 100%;
+                }
+
+                .controls {
+                        display: flex;
+                        gap: 15px;
+                }
+
+                .btn-action {
+                        background-color: #34495e;
+                        color: white;
+                }
+
+                .hidden {
+                        display: none !important;
+                }
+        </style>
 </head>
 
 <body>
 
-    <!-- HOME -->
+        <header>
+                <h1>JEE Active Recall Tracker</h1>
+                <p>Test your retrieval strength systematically.</p>
+        </header>
 
-    <div class="screen" id="homeScreen">
+        <div class="container">
+                <!-- Subject Selection -->
+                <div class="navigation" id="subject-menu"></div>
 
-        <div class="card">
+                <!-- Topic Selection -->
+                <div class="navigation" id="topic-menu"></div>
 
-            <h1>JEE Practice</h1>
+                <!-- Flashcard Display Area -->
+                <div id="card-viewer" class="hidden">
+                        <div class="flashcard">
+                                <div class="metadata">
+                                        <span id="card-index">Question 1/1</span>
+                                        <span id="card-time">Est. Time: 0s</span>
+                                </div>
 
-            <p>
-                Practice random PYQs with timer and detailed result.
-            </p>
+                                <div class="content" id="card-question">Select a topic to begin.</div>
+                                <div class="content answer" id="card-answer"></div>
 
-            <button class="primary" onclick="openSelection()">
-                Start Test
-            </button>
-
-        </div>
-
-    </div>
-
-    <!-- TEST SELECTION -->
-
-    <div class="screen hidden" id="selectScreen">
-
-        <div class="card">
-
-            <h2 style="margin-bottom:25px;">
-                Select Test Type
-            </h2>
-
-            <button class="option" onclick="chooseTest('Physics')">
-                Physics
-            </button>
-
-            <button class="option" onclick="chooseTest('Chemistry')">
-                Chemistry
-            </button>
-
-            <button class="option" onclick="chooseTest('Mathematics')">
-                Mathematics
-            </button>
-
-            <button class="option" onclick="chooseTest('Mixed')">
-                Mixed Test
-            </button>
-
-            <button class="back" onclick="goHome()">
-                Back
-            </button>
-
-        </div>
-
-    </div>
-
-    <!-- QUESTION SCREEN -->
-
-    <div class="screen hidden" id="questionScreen">
-
-        <div class="card">
-
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
-
-                <h3 id="progress">
-                    Question 1/20
-                </h3>
-
-                <div id="timerCircle">
-
-                    <span id="timerText">
-                        20
-                    </span>
-
+                                <div class="controls">
+                                        <button class="btn-action" id="btn-reveal" onclick="revealAnswer()">Show
+                                                Answer</button>
+                                        <button class="btn-action hidden" id="btn-next" onclick="nextQuestion()">Next
+                                                Question</button>
+                                </div>
+                        </div>
                 </div>
-
-            </div>
-
-            <h2 id="questionText">
-                Question will appear here...
-            </h2>
-
-            <div id="options">
-
-                <button class="option answer">Option A</button>
-
-                <button class="option answer">Option B</button>
-
-                <button class="option answer">Option C</button>
-
-                <button class="option answer">Option D</button>
-
-            </div>
-
-            <button class="primary" id="nextBtn">
-                Next
-            </button>
-
         </div>
 
-    </div>-->
+        <script>
+                // JS Object holding your JEE Preparation Data
+                const jeeData = {
+                        "Physics": {
+                                "Mechanics": [
+                                        { question: "State the work-energy theorem.", answer: "The net work done by all forces acting on a particle equals the change in its kinetic energy (W_net = ΔKE).", time: "30s" },
+                                        { question: "What is the condition for pure rolling on a stationary surface?", answer: "The velocity of the point of contact must be zero (v = ωR).", time: "45s" }
+                                ],
+                                "Electrostatics": [
+                                        { question: "What is Gauss's Law formula?", answer: "∮ E · dA = Q_enclosed / ε₀", time: "20s" }
+                                ]
+                        },
+                        "Chemistry": {
+                                "Organic Chemistry": [
+                                        { question: "What is the major product of Markovnikov's addition of HBr to propene?", answer: "2-bromopropane", time: "15s" }
+                                ],
+                                "Thermodynamics": [
+                                        { question: "State the third law of thermodynamics.", answer: "The entropy of a perfect crystal at absolute zero Kelvin is exactly equal to zero.", time: "30s" }
+                                ]
+                        },
+                        "Mathematics": {
+                                "Calculus": [
+                                        { question: "What is the integral of ln(x) dx?", answer: "x * ln(x) - x + C", time: "40s" }
+                                ]
+                        }
+                };
 
-    <script src="main.js"></script>
-    <script src="script.js"></script>
+                let currentQuestions = [];
+                let currentQuestionIndex = 0;
 
+                // Initialize App by generating Subject Buttons
+                function init() {
+                        const subjectMenu = document.getElementById('subject-menu');
+                        for (let subject in jeeData) {
+                                let btn = document.createElement('button');
+                                btn.className = 'btn-subject';
+                                btn.innerText = subject;
+                                btn.onclick = () => loadTopics(subject);
+                                subjectMenu.appendChild(btn);
+                        }
+                }
+
+                // Load topics based on selected subject
+                function loadTopics(subject) {
+                        const topicMenu = document.getElementById('topic-menu');
+                        topicMenu.innerHTML = ''; // Clear old topics
+                        document.getElementById('card-viewer').classList.add('hidden'); // Hide card view
+
+                        for (let topic in jeeData[subject]) {
+                                let btn = document.createElement('button');
+                                btn.className = 'btn-topic';
+                                btn.innerText = topic;
+                                btn.onclick = () => {
+                                        // Toggle active state visualization
+                                        document.querySelectorAll('.btn-topic').forEach(b => b.classList.remove('active'));
+                                        btn.classList.add('active');
+                                        startRecall(subject, topic);
+                                };
+                                topicMenu.appendChild(btn);
+                        }
+                }
+
+                // Load questions for the selected topic
+                function startRecall(subject, topic) {
+                        currentQuestions = jeeData[subject][topic];
+                        currentQuestionIndex = 0;
+                        document.getElementById('card-viewer').classList.remove('hidden');
+                        showQuestion();
+                }
+
+                // Display current question
+                function showQuestion() {
+                        if (currentQuestions.length === 0) return;
+
+                        const q = currentQuestions[currentQuestionIndex];
+                        document.getElementById('card-index').innerText = `Question ${currentQuestionIndex + 1} / ${currentQuestions.length}`;
+                        document.getElementById('card-time').innerText = `Target Time: ${q.time}`;
+                        document.getElementById('card-question').innerText = q.question;
+                        document.getElementById('card-answer').innerText = q.answer;
+
+                        // Reset visibility states
+                        document.getElementById('card-answer').style.display = 'none';
+                        document.getElementById('btn-reveal').classList.remove('hidden');
+                        document.getElementById('btn-next').classList.add('hidden');
+                }
+
+                // Show answer field
+                function revealAnswer() {
+                        document.getElementById('card-answer').style.display = 'block';
+                        document.getElementById('btn-reveal').classList.add('hidden');
+                        document.getElementById('btn-next').classList.remove('hidden');
+                }
+
+                // Advance loop array
+                function nextQuestion() {
+                        currentQuestionIndex++;
+                        if (currentQuestionIndex < currentQuestions.length) {
+                                showQuestion();
+                        } else {
+                                alert("Topic Completed! Choose another topic to keep practicing.");
+                                document.getElementById('card-viewer').classList.add('hidden');
+                                document.querySelectorAll('.btn-topic').forEach(b => b.classList.remove('active'));
+                        }
+                }
+
+                // Run on load
+                init();
+        </script>
 </body>
 
 </html>
